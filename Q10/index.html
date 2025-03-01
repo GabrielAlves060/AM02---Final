@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resetar Avaliações</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .rating-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .rating-button {
+      padding: 10px 20px;
+      font-size: 20px;
+      margin: 0 5px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .rating-button:hover {
+      background-color: #0056b3;
+    }
+
+    .reset-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .reset-button:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="rating-container">
+    <button class="rating-button" data-rating="1">1</button>
+    <button class="rating-button" data-rating="2">2</button>
+    <button class="rating-button" data-rating="3">3</button>
+    <button class="rating-button" data-rating="4">4</button>
+    <button class="rating-button" data-rating="5">5</button>
+  </div>
+
+  <script>
+    function resetRatings() {
+      localStorage.clear();
+
+      document.querySelectorAll('.rating-button').forEach(button => {
+        button.style.backgroundColor = '#007bff'; 
+      });
+    }
+
+    function handleRatingClick(event) {
+      const rating = event.target.getAttribute('data-rating');
+      const buttons = document.querySelectorAll('.rating-button');
+
+      buttons.forEach(button => {
+        if (parseInt(button.getAttribute('data-rating')) <= rating) {
+          button.style.backgroundColor = 'gold'; 
+        } else {
+          button.style.backgroundColor = '#007bff'; 
+        }
+      });
+
+      // Salva a avaliação no localStorage
+      localStorage.setItem('rating', rating);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Adiciona o botão para resetar avaliações
+      const resetButton = document.createElement("button");
+      resetButton.textContent = "Resetar Avaliações";
+      resetButton.classList.add("reset-button");
+      resetButton.addEventListener("click", resetRatings);
+      document.body.appendChild(resetButton);
+
+      const savedRating = localStorage.getItem('rating');
+      if (savedRating) {
+        const buttons = document.querySelectorAll('.rating-button');
+        buttons.forEach(button => {
+          if (parseInt(button.getAttribute('data-rating')) <= savedRating) {
+            button.style.backgroundColor = 'gold';
+          }
+        });
+      }
+
+      document.querySelectorAll('.rating-button').forEach(button => {
+        button.addEventListener('click', handleRatingClick);
+      });
+    });
+  </script>
+</body>
+</html>

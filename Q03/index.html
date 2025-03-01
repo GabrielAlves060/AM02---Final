@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Imagens</title>
+</head>
+<body>
+
+    <h1>Avaliação de Imagens</h1>
+    
+    <img id="imagem1" src="https://picsum.photos/800/400?random=1" alt="Imagem de Exemplo" width="200">
+    
+    <p>Avalie esta imagem:</p>
+    <button onclick="saveRating('imagem1', 1)">⭐</button>
+    <button onclick="saveRating('imagem1', 2)">⭐⭐</button>
+    <button onclick="saveRating('imagem1', 3)">⭐⭐⭐</button>
+    <button onclick="saveRating('imagem1', 4)">⭐⭐⭐⭐</button>
+    <button onclick="saveRating('imagem1', 5)">⭐⭐⭐⭐⭐</button>
+    
+    <p>Rating atual: <span id="ratingDisplay">Carregando...</span></p>
+
+    <script src="script.js"></script> <!-- Importa o JavaScript externo -->
+</body>
+</html>

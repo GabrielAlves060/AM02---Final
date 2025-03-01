@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo de Animação de Imagem</title>
+  <style>
+    /* Estilo da grid */
+    #grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Definição da animação fade-in */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Animação slide-in */
+    .slide-in {
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Animação zoom-in */
+    .zoom-in {
+      animation: zoomIn 0.8s ease-in-out;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Estilo das imagens */
+    img {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="grid"></div>
+
+  <script>
+    // Função para adicionar a imagem com animação
+    function addImageWithAnimation(imageHTML, animationClass) {
+      const grid = document.getElementById("grid");
+      const div = document.createElement("div");
+      div.innerHTML = imageHTML;
+
+      // Adiciona a classe de animação (por exemplo, fade-in, slide-in, zoom-in)
+      div.classList.add(animationClass);
+
+      // Insere a imagem na grid
+      grid.appendChild(div);
+    }
+
+    // Exemplo de como usar a função com diferentes animações
+    const imageHTML = `<img src="https://picsum.photos/800/400?random=1"alt="Imagem exemplo">`;
+    addImageWithAnimation(imageHTML, "fade-in");
+
+    // Adicionando mais imagens com animações diferentes
+    setTimeout(() => {
+      const anotherImageHTML = `<img src="https://picsum.photos/800/400?random=2" alt="Outra imagem exemplo">`;
+      addImageWithAnimation(anotherImageHTML, "slide-in");
+    }, 1000);
+
+    // Adicionando uma imagem com a animação zoom-in
+    setTimeout(() => {
+      const zoomImageHTML = `<img src="https://picsum.photos/800/400?random=3" alt="Imagem com zoom-in">`;
+      addImageWithAnimation(zoomImageHTML, "zoom-in");
+    }, 2000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filtro de Imagens por Autor</title>
+  <style>
+    .image-container {
+      margin: 10px;
+      display: inline-block;
+      width: 200px;
+      text-align: center;
+    }
+    .image-container img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Filtrar Imagens por Autor</h1>
+  
+  <!-- Campo de pesquisa -->
+  <input type="text" id="author-search" placeholder="Buscar por autor" />
+
+  <!-- Grid de imagens -->
+  <div class="image-container" data-author="João Silva">
+    <img src="https://picsum.photos/800/400?random=1" alt="Imagem 1" />
+    <p>João Silva</p>
+  </div>
+  <div class="image-container" data-author="Maria Souza">
+    <img src="https://picsum.photos/800/400?random=2" alt="Imagem 2" />
+    <p>Maria Souza</p>
+  </div>
+  <div class="image-container" data-author="João Silva">
+    <img src="https://picsum.photos/800/400?random=3" alt="Imagem 3" />
+    <p>João Silva</p>
+  </div>
+  <div class="image-container" data-author="Ana Lima">
+    <img src="https://picsum.photos/800/400?random=4" alt="Imagem 4" />
+    <p>Ana Lima</p>
+  </div>
+
+  <script>
+    // Função de filtragem
+    function filterImages(authorName) {
+      const containers = document.querySelectorAll(".image-container");
+      containers.forEach(container => {
+        // Verifica se o autor contém o nome de pesquisa
+        if (container.dataset.author.toLowerCase().includes(authorName.toLowerCase())) {
+          container.style.display = "block"; // Exibe a imagem
+        } else {
+          container.style.display = "none"; // Oculta a imagem
+        }
+      });
+    }
+
+    // Evento de escuta para a pesquisa
+    document.getElementById("author-search").addEventListener("input", function(event) {
+      const authorName = event.target.value; // Obtém o valor da pesquisa
+      filterImages(authorName); // Chama a função para filtrar
+    });
+  </script>
+</body>
+</html>

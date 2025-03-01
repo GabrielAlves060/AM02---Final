@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel de Imagens</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .carousel-nav:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="carousel" class="carousel-container">
+        <button id="prev" class="carousel-nav prev">❮</button>
+        <button id="next" class="carousel-nav next">❯</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+
+        // Lista de imagens fixas
+        const imageUrls = [
+            "https://picsum.photos/800/400?random=1",
+            "https://picsum.photos/800/400?random=2",
+            "https://picsum.photos/800/400?random=3",
+            "https://picsum.photos/800/400?random=4",
+            "https://picsum.photos/800/400?random=5"
+        ];
+
+        function showCarousel() {
+            const carousel = document.getElementById("carousel");
+
+            // Criar os slides dinamicamente
+            imageUrls.forEach((url) => {
+                const slide = document.createElement("div");
+                slide.classList.add("carousel-slide");
+                slide.innerHTML = `<img src="${url}" alt="Imagem">`;
+                carousel.insertBefore(slide, carousel.firstChild); // Insere antes dos botões
+            });
+
+            // Exibir o primeiro slide
+            showSlide(currentSlideIndex);
+
+            // Adicionar eventos aos botões
+            document.getElementById("next").addEventListener("click", nextSlide);
+            document.getElementById("prev").addEventListener("click", previousSlide);
+        }
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll(".carousel-slide");
+            slides.forEach(slide => slide.style.display = "none");
+            slides[index].style.display = "block";
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll(".carousel-slide");
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function previousSlide() {
+            const slides = document.querySelectorAll(".carousel-slide");
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        // Iniciar carrossel quando a página carregar
+        window.onload = showCarousel;
+    </script>
+
+</body>
+</html>
